@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { BrowserRouter, Link, Route } from "react-router-dom";
+import Team from "./Team";
 
 class Teams extends React.Component {
   state = {
@@ -21,11 +22,15 @@ class Teams extends React.Component {
   render() {
     return (
       <div>
-        {this.state.teams.map(team => (
-          <Link to={`/teams/${team.id}`}>
-            <h2>{team.name}</h2>
-          </Link>
-        ))}
+        <BrowserRouter>
+          {this.state.teams.map(team => (
+            <Link key={team.id} to={`/teams/${team.id}`}>
+              <h2>{team.name}</h2>
+            </Link>
+          ))}
+
+          <Route path="/teams/:id" component={Team} />
+        </BrowserRouter>
       </div>
     );
   }
